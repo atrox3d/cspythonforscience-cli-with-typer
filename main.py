@@ -1,5 +1,6 @@
 import typer
 from typing import Annotated
+import rich
 
 app = typer.Typer()
 
@@ -32,10 +33,11 @@ def delete_users(
     '''delete users from active db'''
     for user in users:
         if user not in active_users:
-            print(f'user {user} not in active db')
+            # python -m rich.emoji
+            rich.print(f'[bold yellow]:x: user {user} not in active db[/bold yellow]')
         else:
             if verbose:
-                print(f'user {user} deleted')
+                rich.print(f'[bold green]:white_heavy_check_mark: user {user} deleted[bold green]')
     print('deletion complete')
 
 
