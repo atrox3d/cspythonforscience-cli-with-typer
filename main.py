@@ -1,3 +1,5 @@
+# https://www.youtube.com/watch?v=gOQCFPSjJ-8
+
 import typer
 from typing import Annotated
 import rich
@@ -12,11 +14,15 @@ active_users = [
 
 USERSLIST_TYPE = Annotated[list[str], typer.Argument(help='List of users')]
 VERBOSE_TYPE = Annotated[bool, typer.Option(help='Show verbose output')]
+USERNAME_TYPE = Annotated[str, typer.Option(help='your username')]
+PASSWORD_TYPE = Annotated[str, typer.Option(help='your password', prompt=True, hide_input=True)]
 
 @app.command()
 def add_users(
-    users:USERSLIST_TYPE, 
-    verbose:VERBOSE_TYPE=False
+    users:USERSLIST_TYPE,
+    password:PASSWORD_TYPE,
+    username:USERNAME_TYPE='admin',
+    verbose:VERBOSE_TYPE=False,
 ):
     '''add users to the current users db'''
     for user in users:
