@@ -1,9 +1,11 @@
 # https://www.youtube.com/watch?v=gOQCFPSjJ-8
 
 from functools import wraps
+from time import sleep
 import typer
 from typing import Annotated
 import rich
+from rich.progress import track
 
 app = typer.Typer()
 
@@ -66,8 +68,14 @@ def delete_users(
 
 
 @app.command()
-def list_users():
-    pass
+def list_users(
+    verbose:VERBOSE_TYPE=False
+):
+    for user in track(active_users):
+        sleep(.5)
+        if verbose:
+            rich.print(f'User: {user}')
+    rich.print('done')
 
 
 if __name__ == "__main__":
