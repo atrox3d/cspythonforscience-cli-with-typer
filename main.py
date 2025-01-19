@@ -6,6 +6,9 @@ import typer
 from typing import Annotated
 import rich
 from rich.progress import track
+from rich.table import Table
+from rich.console import Console
+
 
 app = typer.Typer()
 
@@ -71,11 +74,15 @@ def delete_users(
 def list_users(
     verbose:VERBOSE_TYPE=False
 ):
+    table = Table(title='Active users')
+    table.add_column('Username',  justify='center', style='magenta')
     for user in track(active_users):
         sleep(.5)
+        table.add_row(user)
         if verbose:
             rich.print(f'User: {user}')
     rich.print('done')
+    Console().print(table)
 
 
 if __name__ == "__main__":
